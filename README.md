@@ -15,6 +15,17 @@ The paper configuration is recorded in `config/config.yaml`. Both inputs use
 shape `[batch, time, input_dim]`; padding masks use shape `[batch, time]`, where
 `True` denotes padding.
 
+## Model overview
+
+![Overview of the ACMG architecture](figures/final_framework.png)
+
+## Gate visualization
+
+The learned gates emphasize depression-related acoustic regions and textual
+cues while suppressing less informative features.
+
+![Visualization of acoustic and textual gating weights](figures/find.png)
+
 ## Data layout
 
 Each fold CSV must contain these columns:
@@ -62,7 +73,7 @@ pytest -q
 ## Release scope
 
 This repository intentionally excludes clinical data, participant identifiers,
-derived features, predictions, figures, logs, and model checkpoints. Feature
+derived features, predictions, logs, and model checkpoints. Feature
 extraction is not included yet because the exact pretrained-model revisions and
 paper preprocessing settings still need to be consolidated.
 
