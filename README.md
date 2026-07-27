@@ -11,9 +11,10 @@ Official implementation of **ACMG**, accepted by **INTERSPEECH 2026**
   <img src="https://img.shields.io/badge/INTERSPEECH-2026-1f6feb.svg" alt="INTERSPEECH 2026">
   <img src="https://img.shields.io/badge/Python-3.10-3776ab.svg" alt="Python 3.10">
   <img src="https://img.shields.io/badge/PyTorch-required-ee4c2c.svg" alt="PyTorch">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-green.svg" alt="Apache-2.0 license"></a>
 </p>
 
-[Overview](#overview) | [Results](#results) | [Datasets](#datasets) | [Installation](#installation) | [Quick Start](#quick-start) | [Citation](#citation)
+[Overview](#overview) | [Results](#results) | [Datasets](#datasets) | [Installation](#installation) | [Quick Start](#quick-start) | [Citation](#citation) | [License](#license)
 
 </div>
 
@@ -228,25 +229,10 @@ If this work is useful for your research, please cite:
 }
 ```
 
-## License and Responsible Release
+## License
 
-An open-source license has not yet been applied. The copyright holder and
-institutional authorization must be confirmed before licensing because some
-source files currently carry an `xcq&AISML` copyright notice. Dataset access is
-independent of the future code license; no code license grants permission to
-use or redistribute PDCD2025 or DAIC-WOZ.
+The source code is released under the [Apache License 2.0](LICENSE).
 
-<details>
-<summary><strong>Reproducibility and release notes</strong></summary>
-
-- This repository excludes clinical data, participant identifiers, derived
-  features, predictions, logs, and checkpoints.
-- The feature-extraction pipeline is not included because the exact pretrained
-  model revisions and preprocessing settings still need to be consolidated.
-- For compatibility with the original experiments, the retained PDCD2025 flow
-  evaluates the test split after every epoch and uses subject-level F1 to
-  select the saved checkpoint. New experiments should use a separate
-  validation split before reporting final test results. DAIC-WOZ uses its
-  development split for checkpoint selection.
-
-</details>
+The license applies only to the source code in this repository. It does not
+grant permission to access, use, or redistribute PDCD2025, DAIC-WOZ, or any
+derived dataset features.

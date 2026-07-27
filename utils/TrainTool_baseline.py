@@ -3,10 +3,11 @@
 '''
 * @File 	:	 TrainTool.py
 * @Time 	:	 2024/01/20
-* @Author	:	 xcq
+* @Author	:	 yhb
 * @Version	:	 1.0
-* @Contact	:	 cq.xu@siat.ac.cn
-* @License	:	 (C)Copyright 2023-2025, xcq&AISML
+* @Contact	:	 hb.yu@siat.ac.cn
+* @Copyright	:	 Copyright 2025-2026, yhb&AISML
+* SPDX-License-Identifier: Apache-2.0
 * @Desc   	:	 训练过程中的所使用到的函数集合
 '''
 
