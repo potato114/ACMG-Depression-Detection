@@ -1,32 +1,83 @@
-# Learning to Attend to Depression-Related Patterns: An Adaptive Cross-Modal Gating Network for Depression Detection
+<div align="center">
 
-Official implementation of **ACMG**, accepted by **INTERSPEECH 2026**.
+# Learning to Attend to Depression-Related Patterns
 
-**Paper:** [arXiv:2604.10181](https://arxiv.org/abs/2604.10181)
+### An Adaptive Cross-Modal Gating Network for Depression Detection
 
-**Code:** [ACMG-Depression-Detection](https://github.com/potato114/ACMG-Depression-Detection)
+Official implementation of **ACMG**, accepted by **INTERSPEECH 2026**
 
-Depression-related evidence is often sparse and unevenly distributed across an
-interview. Acoustic and textual features can also contain irrelevant or
-conflicting information. ACMG addresses this problem with an adaptive
-cross-modal gating mechanism that uses the global context of one modality to
-reweight the frame- or token-level features of the other modality. This helps
-the model focus on depression-related acoustic regions and textual cues before
+<p>
+  <a href="https://arxiv.org/abs/2604.10181"><img src="https://img.shields.io/badge/arXiv-2604.10181-b31b1b.svg" alt="arXiv"></a>
+  <img src="https://img.shields.io/badge/INTERSPEECH-2026-1f6feb.svg" alt="INTERSPEECH 2026">
+  <img src="https://img.shields.io/badge/Python-3.10-3776ab.svg" alt="Python 3.10">
+  <img src="https://img.shields.io/badge/PyTorch-required-ee4c2c.svg" alt="PyTorch">
+</p>
+
+[Overview](#overview) | [Results](#results) | [Datasets](#datasets) | [Installation](#installation) | [Quick Start](#quick-start) | [Citation](#citation)
+
+</div>
+
+---
+
+## News
+
+- **April 2026:** The ACMG paper is available on [arXiv](https://arxiv.org/abs/2604.10181).
+- **2026:** ACMG was accepted by **INTERSPEECH 2026**.
+
+## Overview
+
+Depression-related evidence is sparse and unevenly distributed across an
+interview. Acoustic and textual sequences also contain irrelevant or
+conflicting information. ACMG uses the global context of each modality to
+adaptively reweight the frame- or token-level features of the other modality,
+allowing the model to focus on clinically meaningful patterns before
 multimodal fusion and classification.
 
-## Model Overview
+### Highlights
 
-![Overview of the ACMG architecture](figures/final_framework.png)
+- **Adaptive feature selection:** emphasizes informative acoustic frames and
+  textual tokens instead of treating every segment equally.
+- **Cross-modal conditioning:** uses global audio context to guide text gating
+  and global text context to guide audio gating.
+- **Two evaluation settings:** supports three-class PDCD2025 experiments and
+  binary DAIC-WOZ experiments.
+- **Interpretable behavior:** learned gates highlight low-energy speech regions
+  and depression-related language patterns.
 
-This repository provides two audio-text models with the same Transformer-based
-backbone:
+<p align="center">
+  <img src="figures/final_framework.png" width="95%" alt="Overview of the ACMG architecture">
+</p>
 
-- `BaselineAT`: independently encodes acoustic and textual sequences, then
-  concatenates the pooled representations for classification.
-- `ACMG`: adds adaptive cross-modal gates before pooling and classification.
+The repository includes two models built on the same Transformer backbone:
 
-Both inputs use the shape `[batch, time, input_dim]`. Padding masks use
+| Model | Description |
+| --- | --- |
+| `BaselineAT` | Independently encodes audio and text, then concatenates their pooled representations. |
+| `ACMG` | Adds adaptive cross-modal gates before pooling and classification. |
+
+Inputs use the shape `[batch, time, input_dim]`. Padding masks use
 `[batch, time]`, where `True` denotes padding.
+
+## Results
+
+### PDCD2025
+
+Subject-level results using the official five-fold cross-validation protocol:
+
+| Method | Accuracy | F1 | Precision | Recall |
+| --- | ---: | ---: | ---: | ---: |
+| Transformer (Qwen) | 79.78 | 79.48 | 79.37 | 79.59 |
+| + ACMG with unimodal gating | 80.88 | 80.58 | 80.31 | 80.85 |
+| **+ ACMG with cross-modal gating** | **81.25** | **80.77** | **80.61** | **80.93** |
+
+### DAIC-WOZ
+
+Results on the official development partition using audio and text:
+
+| Method | F1 | Precision | Recall |
+| --- | ---: | ---: | ---: |
+| Transformer (Qwen) | 64.38 | 64.77 | 64.13 |
+| **+ ACMG with cross-modal gating** | **69.39** | **71.79** | **68.48** |
 
 ## Datasets
 
@@ -35,22 +86,22 @@ Both inputs use the shape `[batch, time, input_dim]`. Padding masks use
 PDCD2025 contains 22.9 hours of online telephone counselling recordings from
 272 participants aged 12 to 45, including healthy controls and participants
 with clinically diagnosed depression. The task has three classes: healthy,
-mild depression, and moderate depression. The experiments use the official
-five-fold cross-validation protocol.
+mild depression, and moderate depression.
 
-PDCD2025 contains sensitive clinical speech and participant information.
-Participant consent and privacy restrictions do not permit redistribution, so
-the dataset and its derived features cannot be released in this repository.
+> **Privacy notice:** PDCD2025 contains sensitive clinical speech and
+> participant information. Participant consent and privacy restrictions do not
+> permit redistribution, so neither the dataset nor its derived features can
+> be released in this repository.
 
 ### DAIC-WOZ
 
 [DAIC-WOZ](https://dcapswoz.ict.usc.edu/) contains 189 English clinical
 interviews annotated with PHQ-8 depression scores. Following the dataset
-protocol, this repository uses participant speech only and performs binary
+protocol, the experiments use participant speech only and perform binary
 classification with a PHQ-8 threshold of 10. Access must be requested from the
-dataset owner; DAIC-WOZ and its derived features are not included here.
+dataset owner; the data and derived features are not included here.
 
-## Environment
+## Installation
 
 ```bash
 git clone https://github.com/potato114/ACMG-Depression-Detection.git
@@ -79,7 +130,7 @@ per segment. Each file stores a dictionary with `segment_id`, `subject_id`, and
 `feature`; the paper configuration uses features with shape `[time, 1024]`.
 
 Place the prepared files in the following layout, or update the paths in the
-corresponding YAML configuration:
+corresponding YAML file:
 
 ```text
 data/
@@ -100,7 +151,7 @@ data/
 
 ### PDCD2025
 
-Train the audio-text baseline:
+Baseline:
 
 ```bash
 python baseline.py \
@@ -110,7 +161,7 @@ python baseline.py \
   --device cuda:0
 ```
 
-Train ACMG:
+ACMG:
 
 ```bash
 python baseline.py \
@@ -125,7 +176,7 @@ cross-validation.
 
 ### DAIC-WOZ
 
-Train the audio-text baseline:
+Baseline:
 
 ```bash
 python baseline_DAIC_WOZ.py \
@@ -134,7 +185,7 @@ python baseline_DAIC_WOZ.py \
   --device cuda:0
 ```
 
-Train ACMG:
+ACMG:
 
 ```bash
 python baseline_DAIC_WOZ.py \
@@ -151,7 +202,12 @@ Use `--device cpu` when CUDA is unavailable. Training outputs are written to
 The learned gates assign larger weights to depression-related acoustic regions
 and textual cues while suppressing less informative features.
 
-![Visualization of acoustic and textual gating weights](figures/find.png)
+<p align="center">
+  <img src="figures/find.png" width="95%" alt="Visualization of acoustic and textual gating weights">
+</p>
+
+The acoustic gates exhibit a negative correlation with acoustic energy, while
+the textual gates emphasize negative sentiment and self-referential language.
 
 ## Verification
 
@@ -172,18 +228,25 @@ If this work is useful for your research, please cite:
 }
 ```
 
-## Release Notes
+## License and Responsible Release
 
-This repository excludes clinical data, participant identifiers, derived
-features, predictions, logs, and checkpoints. The feature-extraction pipeline
-is not included because the exact pretrained-model revisions and preprocessing
-settings still need to be consolidated.
+An open-source license has not yet been applied. The copyright holder and
+institutional authorization must be confirmed before licensing because some
+source files currently carry an `xcq&AISML` copyright notice. Dataset access is
+independent of the future code license; no code license grants permission to
+use or redistribute PDCD2025 or DAIC-WOZ.
 
-For behavioral compatibility with the original experiments, the retained
-PDCD2025 training flow evaluates the test split after every epoch and uses its
-subject-level F1 score to select the saved checkpoint. New experiments should
-use a separate validation split before reporting final test results. DAIC-WOZ
-uses its development split for checkpoint selection.
+<details>
+<summary><strong>Reproducibility and release notes</strong></summary>
 
-No open-source license is included yet. Confirm ownership and institutional
-permission before selecting a license or redistributing the code.
+- This repository excludes clinical data, participant identifiers, derived
+  features, predictions, logs, and checkpoints.
+- The feature-extraction pipeline is not included because the exact pretrained
+  model revisions and preprocessing settings still need to be consolidated.
+- For compatibility with the original experiments, the retained PDCD2025 flow
+  evaluates the test split after every epoch and uses subject-level F1 to
+  select the saved checkpoint. New experiments should use a separate
+  validation split before reporting final test results. DAIC-WOZ uses its
+  development split for checkpoint selection.
+
+</details>
