@@ -230,7 +230,11 @@ def parse_args():
   parser.add_argument('--config', default='config/config.yaml')
   parser.add_argument('--fold', type=int, choices=range(1, 6), default=1)
   parser.add_argument('--device', default=None, help="For example: 'cuda:0' or 'cpu'.")
-  parser.add_argument('--model-type', choices=['A_T', 'GateModel_A_T_bytime'], default=None)
+  parser.add_argument(
+    '--model-type',
+    choices=['A_T', 'GateModel_A_T_bytime', 'GateModel_A_T_unimodal'],
+    default=None,
+  )
   parser.add_argument('--seed', type=int, default=None)
   return parser.parse_args()
 

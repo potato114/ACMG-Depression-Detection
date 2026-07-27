@@ -17,7 +17,8 @@ seed: 7777
 speech_length: 400
 txt_length: 120
 
-# A_T: baseline; GateModel_A_T_bytime: ACMG
+# A_T: baseline; GateModel_A_T_unimodal: unimodal ablation;
+# GateModel_A_T_bytime: cross-modal ACMG
 model_type: 'GateModel_A_T_bytime'
 num_classes: 3
 input_dim: 1024
@@ -40,5 +41,8 @@ model_config:
     num_layers: 12
     num_heads: 8
   GateModel_A_T_bytime:
+    num_layers: 12
+    num_heads: 8
+  GateModel_A_T_unimodal:
     num_layers: 12
     num_heads: 8

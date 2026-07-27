@@ -233,10 +233,13 @@ def get_model(config):
   elif config.model_type == 'GateModel_A_T_bytime':
     from models.acmg import GateModel_A_T
     model = GateModel_A_T(**kwargs)
+  elif config.model_type == 'GateModel_A_T_unimodal':
+    from models.acmg_Unimodal import UnimodalGateModel_A_T
+    model = UnimodalGateModel_A_T(**kwargs)
   else:
     raise ValueError(
       f"Unsupported model_type={config.model_type!r}. "
-      "This release includes only 'A_T' and 'GateModel_A_T_bytime'."
+      "Choose 'A_T', 'GateModel_A_T_bytime', or 'GateModel_A_T_unimodal'."
     )
 
   model.to(config.device)

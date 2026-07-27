@@ -34,6 +34,10 @@ adaptively reweight the frame- or token-level features of the other modality,
 allowing the model to focus on clinically meaningful patterns before
 multimodal fusion and classification.
 
+The acoustic-textual baseline is available in the
+[Emotional-Inconsistency-Depression](https://github.com/potato114/Emotional-Inconsistency-Depression)
+repository.
+
 ### Highlights
 
 - **Adaptive feature selection:** emphasizes informative acoustic frames and
@@ -49,11 +53,12 @@ multimodal fusion and classification.
   <img src="figures/final_framework.png" width="95%" alt="Overview of the ACMG architecture">
 </p>
 
-The repository includes two models built on the same Transformer backbone:
+The repository includes three models built on the same Transformer backbone:
 
 | Model | Description |
 | --- | --- |
 | `BaselineAT` | Independently encodes audio and text, then concatenates their pooled representations. |
+| `ACMGUnimodal` | Uses same-modality global context for the unimodal-gating ablation. |
 | `ACMG` | Adds adaptive cross-modal gates before pooling and classification. |
 
 Inputs use the shape `[batch, time, input_dim]`. Padding masks use
@@ -159,6 +164,16 @@ python baseline.py \
   --config config/config.yaml \
   --fold 1 \
   --model-type A_T \
+  --device cuda:0
+```
+
+Unimodal-gating ablation:
+
+```bash
+python baseline.py \
+  --config config/config.yaml \
+  --fold 1 \
+  --model-type GateModel_A_T_unimodal \
   --device cuda:0
 ```
 

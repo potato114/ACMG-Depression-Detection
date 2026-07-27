@@ -2,12 +2,12 @@ import pytest
 import torch
 from argparse import Namespace
 
-from models import ACMG, BaselineAT
+from models import ACMG, ACMGUnimodal, BaselineAT
 from models.acmg import CrossModalGate
 from utils import TrainTool_baseline, TrainTool_baseline_2class
 
 
-@pytest.mark.parametrize("model_class", [BaselineAT, ACMG])
+@pytest.mark.parametrize("model_class", [BaselineAT, ACMG, ACMGUnimodal])
 def test_model_forward(model_class):
     model = model_class(
         input_dim=8,
@@ -73,3 +73,19 @@ def test_training_model_registry(model_type, expected_type, training_tool, num_c
     )
 
     assert isinstance(training_tool.get_model(config), expected_type)
+
+
+def test_unimodal_training_model_registry():
+    config = Namespace(
+        model_type="GateModel_A_T_unimodal",
+        model_config={
+            "GateModel_A_T_unimodal": {"num_layers": 1, "num_heads": 2}
+        },
+        num_classes=3,
+        input_dim=8,
+        ffn_embed_dim=16,
+        project_path=".",
+        device="cpu",
+    )
+
+    assert isinstance(TrainTool_baseline.get_model(config), ACMGUnimodal)
