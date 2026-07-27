@@ -1,0 +1,43 @@
+# ------------------- 数据相关配置 -------------------
+project_path: '.'
+fold_1_dataset_csv: 'data/splits/daic_woz_fold_1.csv'
+
+speech_feature_data_dir: 'data/features/daic_woz/audio'
+txt_feature_data_dir: 'data/features/daic_woz/text'
+output_dir: 'outputs'
+exp_path: ''
+
+seed: 16555
+
+# ------------------- 模型相关配置 -------------------
+speech_length: 400
+txt_length: 120
+
+# A_T: baseline; GateModel_A_T_bytime: ACMG
+model_type: 'A_T'
+num_classes: 2
+input_dim: 1024
+ffn_embed_dim: 512
+
+# ------------------- 训练设置 -------------------
+lr: 0.00001
+epochs: 30
+device: 'cuda:0'
+optim: 'Adam'
+weight_decay: 0.001
+batch_size: 16
+accum_iter: 1
+early_stop_patience: 20
+criterion: 'focal_loss'
+use_class_weight: true
+focal_gamma: 2.0
+early_stop: false
+
+# ------------------- 各模型超参 -------------------
+model_config:
+  A_T:
+    num_layers: 2
+    num_heads: 4
+  GateModel_A_T_bytime:
+    num_layers: 2
+    num_heads: 4

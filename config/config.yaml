@@ -1,0 +1,44 @@
+# ------------------- 数据相关配置 -------------------
+project_path: '.'
+fold_1_dataset_csv: 'data/splits/fold_1.csv'
+fold_2_dataset_csv: 'data/splits/fold_2.csv'
+fold_3_dataset_csv: 'data/splits/fold_3.csv'
+fold_4_dataset_csv: 'data/splits/fold_4.csv'
+fold_5_dataset_csv: 'data/splits/fold_5.csv'
+
+speech_feature_data_dir: 'data/features/audio'
+txt_feature_data_dir: 'data/features/text'
+output_dir: 'outputs'
+exp_path: ''
+
+seed: 7777
+
+# ------------------- 模型相关配置 -------------------
+speech_length: 400
+txt_length: 120
+
+# A_T: baseline; GateModel_A_T_bytime: ACMG
+model_type: 'GateModel_A_T_bytime'
+num_classes: 3
+input_dim: 1024
+ffn_embed_dim: 512
+
+# ------------------- 训练设置 -------------------
+lr: 0.00001
+epochs: 30
+device: 'cuda:0'
+optim: 'Adam'
+batch_size: 16
+accum_iter: 8
+early_stop_patience: 20
+criterion: 'CrossEntropyLoss'
+early_stop: false
+
+# ------------------- 各模型超参 -------------------
+model_config:
+  A_T:
+    num_layers: 12
+    num_heads: 8
+  GateModel_A_T_bytime:
+    num_layers: 12
+    num_heads: 8

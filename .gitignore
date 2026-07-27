@@ -1,0 +1,30 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# Local data and participant-derived artifacts
+data/
+features/
+exp/
+outputs/
+checkpoints/
+*.csv
+*.xlsx
+*.wav
+*.mp3
+*.m4a
+*.pt
+*.pth
+*.ckpt
+*.pkl
+*.pickle
+
+# Editor and operating-system files
+.idea/
+.vscode/
+.DS_Store
+*.swp
