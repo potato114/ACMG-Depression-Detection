@@ -1,8 +1,10 @@
 -r requirements.txt
 fairseq
+modelscope
 openai-whisper
 openpyxl
 scipy
 soundfile
 torchaudio
+torchaudio-augmentations
 transformers

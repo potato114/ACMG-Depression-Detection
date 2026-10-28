@@ -126,8 +126,9 @@ the default package selected by `pip` is not appropriate.
 
 Preprocessing and feature-extraction scripts are available in
 [`extract_feature/`](extract_feature/README.md), including participant-only
-DAIC-WOZ audio segmentation and the legacy BERT, RoBERTa, HuBERT, Wav2Vec 2.0,
-Whisper, and WavLM extractors. Install their optional dependencies separately:
+DAIC-WOZ audio segmentation, Qwen3-Embedding text extraction, DAIC-WOZ HuBERT
+extraction, and the legacy BERT, RoBERTa, HuBERT, Wav2Vec 2.0, Whisper, and WavLM
+extractors. Install their optional dependencies separately:
 
 ```bash
 python -m pip install -r requirements-feature-extraction.txt

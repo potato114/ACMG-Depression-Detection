@@ -8,3 +8,8 @@ were imported from potato114/Emotional-Inconsistency-Depression at commit
 2f5494503d70f96617994f8ffaf47ca71cd7d417. Their original notices are retained.
 The WavLM implementation under extract_feature/wavlm/ is derived from Microsoft
 UniLM and retains its included MIT license.
+
+The Qwen3-Embedding scripts extract_qwen_embedding.py and
+extract_qwen_embedding_DAICWOZ.py, and the DAIC-WOZ HuBERT script
+extract_hubert_DAIC.py, were imported from the project's local
+Xcode/extract_feature directory, separately from the legacy import above.
