@@ -1,0 +1,8 @@
+-r requirements.txt
+fairseq
+openai-whisper
+openpyxl
+scipy
+soundfile
+torchaudio
+transformers

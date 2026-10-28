@@ -124,6 +124,18 @@ the default package selected by `pip` is not appropriate.
 
 ## Data Preparation
 
+Preprocessing and feature-extraction scripts are available in
+[`extract_feature/`](extract_feature/README.md), including participant-only
+DAIC-WOZ audio segmentation and the legacy BERT, RoBERTa, HuBERT, Wav2Vec 2.0,
+Whisper, and WavLM extractors. Install their optional dependencies separately:
+
+```bash
+python -m pip install -r requirements-feature-extraction.txt
+```
+
+See the directory guide for input layouts, checkpoint paths, and the additional
+helper required by the legacy TextGrid preprocessing script.
+
 Each split CSV must contain the following columns:
 
 ```text
@@ -246,7 +258,10 @@ If this work is useful for your research, please cite:
 
 ## License
 
-The source code is released under the [Apache License 2.0](LICENSE).
+The ACMG-specific source code is released under the [Apache License 2.0](LICENSE).
+Imported scripts in `extract_feature/` retain their original copyright notices;
+see [their provenance](extract_feature/README.md#provenance-and-notices). The
+bundled WavLM implementation retains its [MIT license](extract_feature/wavlm/LICENSE).
 
 The license applies only to the source code in this repository. It does not
 grant permission to access, use, or redistribute PDCD2025, DAIC-WOZ, or any

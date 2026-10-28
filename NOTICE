@@ -2,3 +2,9 @@ ACMG: Adaptive Cross-Modal Gating Network for Depression Detection
 Copyright 2025-2026 yhb and AISML
 
 This product includes software developed for the ACMG research project.
+
+The legacy preprocessing and feature-extraction scripts in extract_feature/
+were imported from potato114/Emotional-Inconsistency-Depression at commit
+2f5494503d70f96617994f8ffaf47ca71cd7d417. Their original notices are retained.
+The WavLM implementation under extract_feature/wavlm/ is derived from Microsoft
+UniLM and retains its included MIT license.
